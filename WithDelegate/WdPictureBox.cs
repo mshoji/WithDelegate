@@ -32,5 +32,19 @@ namespace WithDelegate
 				this.Refresh();
 			}
 		}
+		////////////////////////////////////////////////////////////////
+		delegate void ThisWdVisibleCallback(bool flg);
+		public void WdVisible(bool flg)
+		{
+			if(this.InvokeRequired)
+			{
+				ThisWdVisibleCallback d = new ThisWdVisibleCallback(WdVisible);
+				this.Invoke(d, new object[] { flg });
+			}
+			else
+			{
+				this.Visible = flg;
+			}
+		}
 	}
 }
