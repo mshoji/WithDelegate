@@ -16,7 +16,7 @@ using System.Text;
 
 namespace WithDelegate
 {
-	class WdRadioButton : System.Windows.Forms.RadioButton
+	public class WdRadioButton : System.Windows.Forms.RadioButton
 	{
 		////////////////////////////////////////////////////////////////
 		delegate string GetTextCallback();
