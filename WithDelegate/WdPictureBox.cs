@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace WithDelegate
 {
@@ -44,6 +45,20 @@ namespace WithDelegate
 			else
 			{
 				this.Visible = flg;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void SetBackColorCallback(Color col);
+		public void SetBackColor(Color col)
+		{
+			if(this.InvokeRequired)
+			{
+				SetBackColorCallback d = new SetBackColorCallback(SetBackColor);
+				this.Invoke(d, new object[] { col });
+			}
+			else
+			{
+				this.BackColor = col;
 			}
 		}
 	}
