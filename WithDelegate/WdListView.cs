@@ -216,5 +216,19 @@ namespace WithDelegate
 				this.Items.Insert(index, str);
 			}
 		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdClearCallback();
+		public void WdClear()		// Since RemoveAt exists, it was referred to as WdRemoveAt. 
+		{
+			if(this.InvokeRequired)
+			{
+				WdClearCallback d = new WdClearCallback(WdClear);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Items.Clear();
+			}
+		}
 	}
 }
