@@ -37,7 +37,7 @@ namespace WithDelegate
 		delegate void WdColumnsAddCallback(string text);
 		public void WdColumnsAdd(string text)		// Since ColumnsAdd exists, it was referred to as WdColumnsAdd. 
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
 				WdColumnsAddCallback d = new WdColumnsAddCallback(WdColumnsAdd);
 				this.Invoke(d, new object[] { text });
@@ -45,6 +45,20 @@ namespace WithDelegate
 			else
 			{
 				this.Columns.Add(text);
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdColumnsClearCallback();
+		public void WdColumnsClear()		// Since ColumnsAdd exists, it was referred to as WdColumnsAdd. 
+		{
+			if(this.InvokeRequired)
+			{
+				WdColumnsClearCallback d = new WdColumnsClearCallback(WdColumnsClear);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Columns.Clear();
 			}
 		}
 		////////////////////////////////////////////////////////////////
