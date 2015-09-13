@@ -34,12 +34,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void ThisWdVisibleCallback(bool flg);
+		delegate void WdVisibleCallback(bool flg);
 		public void WdVisible(bool flg)
 		{
 			if(this.InvokeRequired)
 			{
-				ThisWdVisibleCallback d = new ThisWdVisibleCallback(WdVisible);
+				WdVisibleCallback d = new WdVisibleCallback(WdVisible);
 				this.Invoke(d, new object[] { flg });
 			}
 			else
@@ -48,12 +48,28 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
 		delegate void SetBackColorCallback(Color col);
 		public void SetBackColor(Color col)
 		{
 			if(this.InvokeRequired)
 			{
 				SetBackColorCallback d = new SetBackColorCallback(SetBackColor);
+				this.Invoke(d, new object[] { col });
+			}
+			else
+			{
+				this.BackColor = col;
+			}
+		}
+#endif
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetBackColorCallback(Color col);
+		public void WdSetBackColor(Color col)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetBackColorCallback d = new WdSetBackColorCallback(WdSetBackColor);
 				this.Invoke(d, new object[] { col });
 			}
 			else

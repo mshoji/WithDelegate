@@ -33,6 +33,7 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
 		delegate void SetTextCallback(string str);
 		public void SetText(string str)
 		{
@@ -46,13 +47,28 @@ namespace WithDelegate
 				this.Text = str;
 			}
 		}
+#endif
 		////////////////////////////////////////////////////////////////
-		delegate void ThisWdVisibleCallback(bool flg);
+		delegate void WdSetTextCallback(string str);
+		public void WdSetText(string str)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetTextCallback d = new WdSetTextCallback(WdSetText);
+				this.Invoke(d, new object[] { str });
+			}
+			else
+			{
+				this.Text = str;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdVisibleCallback(bool flg);
 		public void WdVisible(bool flg)
 		{
 			if (this.InvokeRequired)
 			{
-				ThisWdVisibleCallback d = new ThisWdVisibleCallback(WdVisible);
+				WdVisibleCallback d = new WdVisibleCallback(WdVisible);
 				this.Invoke(d, new object[] { flg });
 			}
 			else
@@ -61,12 +77,28 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void ThisEnableCallback(bool flg);
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
+		delegate void EnableCallback(bool flg);
 		public void Enable(bool flg)
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
-				ThisEnableCallback d = new ThisEnableCallback(Enable);
+				EnableCallback d = new EnableCallback(Enable);
+				this.Invoke(d, new object[] { flg });
+			}
+			else
+			{
+				this.Enabled = flg;
+			}
+		}
+#endif
+		////////////////////////////////////////////////////////////////
+		delegate void WdEnableCallback(bool flg);
+		public void WdEnable(bool flg)
+		{
+			if(this.InvokeRequired)
+			{
+				WdEnableCallback d = new WdEnableCallback(WdEnable);
 				this.Invoke(d, new object[] { flg });
 			}
 			else

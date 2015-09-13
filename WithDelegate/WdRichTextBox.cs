@@ -20,10 +20,11 @@ namespace WithDelegate
 	public class WdRichTextBox : System.Windows.Forms.RichTextBox
 	{
 		////////////////////////////////////////////////////////////////
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
 		delegate string GetTextCallback();
 		public string GetText()
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
 				GetTextCallback d = new GetTextCallback(GetText);
 				return (string)this.Invoke(d, new object[] { });
@@ -33,13 +34,44 @@ namespace WithDelegate
 				return this.Text;
 			}
 		}
+#endif
 		////////////////////////////////////////////////////////////////
+		delegate string WdGetTextCallback();
+		public string WdGetText()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetTextCallback d = new WdGetTextCallback(WdGetText);
+				return (string)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Text;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
 		delegate void SetTextCallback(string str);
 		public void SetText(string str)
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
 				SetTextCallback d = new SetTextCallback(SetText);
+				this.Invoke(d, new object[] { str });
+			}
+			else
+			{
+				this.Text = str;
+			}
+		}
+#endif
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetTextCallback(string str);
+		public void WdSetText(string str)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetTextCallback d = new WdSetTextCallback(WdSetText);
 				this.Invoke(d, new object[] { str });
 			}
 			else
@@ -62,12 +94,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void ThisWdVisibleCallback(bool flg);
+		delegate void WdVisibleCallback(bool flg);
 		public void WdVisible(bool flg)
 		{
 			if(this.InvokeRequired)
 			{
-				ThisWdVisibleCallback d = new ThisWdVisibleCallback(WdVisible);
+				WdVisibleCallback d = new WdVisibleCallback(WdVisible);
 				this.Invoke(d, new object[] { flg });
 			}
 			else
@@ -76,12 +108,28 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void ThisEnableCallback(bool flg);
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
+		delegate void EnableCallback(bool flg);
 		public void Enable(bool flg)
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
-				ThisEnableCallback d = new ThisEnableCallback(Enable);
+				EnableCallback d = new EnableCallback(Enable);
+				this.Invoke(d, new object[] { flg });
+			}
+			else
+			{
+				this.Enabled = flg;
+			}
+		}
+#endif
+		////////////////////////////////////////////////////////////////
+		delegate void WdEnableCallback(bool flg);
+		public void WdEnable(bool flg)
+		{
+			if(this.InvokeRequired)
+			{
+				WdEnableCallback d = new WdEnableCallback(WdEnable);
 				this.Invoke(d, new object[] { flg });
 			}
 			else
@@ -160,12 +208,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void SelectionColorCallback(Color col);
+		delegate void WdSelectionColorCallback(Color col);
 		public void WdSelectionColor(Color col)		// Since SelectionColor exists, it was referred to as WdSelectionColor. 
 		{
 			if (this.InvokeRequired)
 			{
-				SelectionColorCallback d = new SelectionColorCallback(WdSelectionColor);
+				WdSelectionColorCallback d = new WdSelectionColorCallback(WdSelectionColor);
 				this.Invoke(d, new object[] { col });
 			}
 			else
@@ -174,12 +222,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void SelectionLengthCallback(int length);
+		delegate void WdSelectionLengthCallback(int length);
 		public void WdSelectionLength(int length)		// Since SelectionLength exists, it was referred to as WdSelectionLength. 
 		{
 			if (this.InvokeRequired)
 			{
-				SelectionLengthCallback d = new SelectionLengthCallback(WdSelectionLength);
+				WdSelectionLengthCallback d = new WdSelectionLengthCallback(WdSelectionLength);
 				this.Invoke(d, new object[] { length });
 			}
 			else
@@ -188,12 +236,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void SelectionFontCallback(Font font);
+		delegate void WdSelectionFontCallback(Font font);
 		public void WdSelectionFont(Font font)		// Since SelectionFont exists, it was referred to as WdSelectionFont. 
 		{
 			if (this.InvokeRequired)
 			{
-				SelectionFontCallback d = new SelectionFontCallback(WdSelectionFont);
+				WdSelectionFontCallback d = new WdSelectionFontCallback(WdSelectionFont);
 				this.Invoke(d, new object[] { font });
 			}
 			else
@@ -202,12 +250,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void SelectedTextCallback(string text);
+		delegate void WdSelectedTextCallback(string text);
 		public void WdSelectedText(string text)		// Since SelectedText exists, it was referred to as WdSelectedText. 
 		{
 			if (this.InvokeRequired)
 			{
-				SelectedTextCallback d = new SelectedTextCallback(WdSelectedText);
+				WdSelectedTextCallback d = new WdSelectedTextCallback(WdSelectedText);
 				this.Invoke(d, new object[] { text });
 			}
 			else
@@ -216,10 +264,11 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
 		delegate int GetLinesLengthCallback();
 		public int GetLinesLength()
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
 				GetLinesLengthCallback d = new GetLinesLengthCallback(GetLinesLength);
 				return (int)this.Invoke(d, new object[] { });
@@ -229,33 +278,61 @@ namespace WithDelegate
 				return this.Lines.Length;
 			}
 		}
+#endif
 		////////////////////////////////////////////////////////////////
+		delegate int WdGetLinesLengthCallback();
+		public int WdGetLinesLength()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetLinesLengthCallback d = new WdGetLinesLengthCallback(WdGetLinesLength);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Lines.Length;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
 		delegate void RemoveFirstLineCallback();
 		public void RemoveFirstLine()		// The information on a color will disappear. (???)
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
 				RemoveFirstLineCallback d = new RemoveFirstLineCallback(RemoveFirstLine);
 				this.Invoke(d, new object[] { });
 			}
 			else
 			{
-#if true
 				int index = this.GetFirstCharIndexFromLine(1);
 				this.Select(0, index >= 0 ? index : this.TextLength);
 				this.SelectedText = "";
-#else
-				int index = this.Text.IndexOf('\n', 0);
-				this.Select(0, index + 1);
-				this.SelectedText = "";
+			}
+		}
 #endif
+		////////////////////////////////////////////////////////////////
+		delegate void WdRemoveFirstLineCallback();
+		public void WdRemoveFirstLine()		// The information on a color will disappear. (???)
+		{
+			if(this.InvokeRequired)
+			{
+				WdRemoveFirstLineCallback d = new WdRemoveFirstLineCallback(WdRemoveFirstLine);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				int index = this.GetFirstCharIndexFromLine(1);
+				this.Select(0, index >= 0 ? index : this.TextLength);
+				this.SelectedText = "";
 			}
 		}
 		////////////////////////////////////////////////////////////////
+#if false	// 旧バージョンとの互換性維持のために残すかもしれない
 		delegate void RemoveLineCallback(int num);
 		public void RemoveLine(int num)		// The information on a color will disappear. (???)
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
 				RemoveLineCallback d = new RemoveLineCallback(RemoveLine);
 				this.Invoke(d, new object[] { num });
@@ -266,7 +343,32 @@ namespace WithDelegate
 				int count = this.Lines[num].Length;
 
 				// Eat new line chars
-				if (num < this.Lines.Length - 1)
+				if(num < this.Lines.Length - 1)
+				{
+					count += this.GetFirstCharIndexFromLine(num + 1) -
+						((start_index + count - 1) + 1);
+				}
+
+				this.Text = this.Text.Remove(start_index, count);
+			}
+		}
+#endif
+		////////////////////////////////////////////////////////////////
+		delegate void WdRemoveLineCallback(int num);
+		public void WdRemoveLine(int num)		// The information on a color will disappear. (???)
+		{
+			if(this.InvokeRequired)
+			{
+				WdRemoveLineCallback d = new WdRemoveLineCallback(WdRemoveLine);
+				this.Invoke(d, new object[] { num });
+			}
+			else
+			{
+				int start_index = this.GetFirstCharIndexFromLine(num);
+				int count = this.Lines[num].Length;
+
+				// Eat new line chars
+				if(num < this.Lines.Length - 1)
 				{
 					count += this.GetFirstCharIndexFromLine(num + 1) -
 						((start_index + count - 1) + 1);
@@ -290,20 +392,5 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-#if false
-		delegate void WdIsReadOnlyCaretVisibleCallback(bool flg);
-		public void WdIsReadOnlyCaretVisible(bool flg)
-		{
-			if (this.InvokeRequired)
-			{
-				WdIsReadOnlyCaretVisibleCallback d = new WdIsReadOnlyCaretVisibleCallback(WdIsReadOnlyCaretVisible);
-				this.Invoke(d, new object[] { flg });
-			}
-			else
-			{
-				this.IsReadOnlyCaretVisible = flg;
-			}
-		}
-#endif
 	}
 }
