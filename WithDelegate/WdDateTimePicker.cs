@@ -106,5 +106,19 @@ namespace WithDelegate
 				this.Text = str;
 			}
 		}
+		////////////////////////////////////////////////////////////////
+		delegate DateTime WdGetValueCallback();
+		public DateTime WdGetValue()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetValueCallback d = new WdGetValueCallback(WdGetValue);
+				return (DateTime)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Value;
+			}
+		}
 	}
 }
