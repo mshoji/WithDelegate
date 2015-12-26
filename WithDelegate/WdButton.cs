@@ -19,12 +19,12 @@ namespace WithDelegate
 	public class WdButton : System.Windows.Forms.Button
 	{
 		////////////////////////////////////////////////////////////////
-		delegate string GetTextCallback();
-		public string GetText()
+		delegate string WdGetTextCallback();
+		public string WdGetText()
 		{
 			if (this.InvokeRequired)
 			{
-				GetTextCallback d = new GetTextCallback(GetText);
+				WdGetTextCallback d = new WdGetTextCallback(WdGetText);
 				return (string)this.Invoke(d, new object[] { });
 			}
 			else
@@ -32,22 +32,6 @@ namespace WithDelegate
 				return this.Text;
 			}
 		}
-		////////////////////////////////////////////////////////////////
-#if false	// 旧バージョンとの互換性維持のために残すかもしれない
-		delegate void SetTextCallback(string str);
-		public void SetText(string str)
-		{
-			if (this.InvokeRequired)
-			{
-				SetTextCallback d = new SetTextCallback(SetText);
-				this.Invoke(d, new object[] { str });
-			}
-			else
-			{
-				this.Text = str;
-			}
-		}
-#endif
 		////////////////////////////////////////////////////////////////
 		delegate void WdSetTextCallback(string str);
 		public void WdSetText(string str)
@@ -60,6 +44,20 @@ namespace WithDelegate
 			else
 			{
 				this.Text = str;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdPerformClickCallback();
+		public void WdPerformClick()
+		{
+			if(this.InvokeRequired)
+			{
+				WdPerformClickCallback d = new WdPerformClickCallback(WdPerformClick);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.PerformClick();
 			}
 		}
 		////////////////////////////////////////////////////////////////

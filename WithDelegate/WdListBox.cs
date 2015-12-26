@@ -155,6 +155,34 @@ namespace WithDelegate
 		}
 #endif
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetSelectedValueCallback(object item);
+		public void WdSetSelectedValue(object item)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetSelectedValueCallback d = new WdSetSelectedValueCallback(WdSetSelectedValue);
+				this.Invoke(d, new object[] { item });
+			}
+			else
+			{
+				this.SelectedValue = item;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate object WdGetSelectedValueCallback();
+		public object WdGetSelectedValue()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetSelectedValueCallback d = new WdGetSelectedValueCallback(WdGetSelectedValue);
+				return this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.SelectedValue;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate int WdAddItemCallback(object item);
 		public int WdAddItem(object item)
 		{
@@ -166,6 +194,62 @@ namespace WithDelegate
 			else
 			{
 				return this.Items.Add(item);
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetSelectIndexCallback(int index);
+		public void WdSetSelectIndex(int index)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetSelectIndexCallback d = new WdSetSelectIndexCallback(WdSetSelectIndex);
+				this.Invoke(d, new object[] { index });
+			}
+			else
+			{
+				this.SelectedIndex = index;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate int WdGetSelectIndexCallback();
+		public int WdGetSelectIndex()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetSelectIndexCallback d = new WdGetSelectIndexCallback(WdGetSelectIndex);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.SelectedIndex;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdInvalidateCallback();
+		public void WdInvalidate()
+		{
+			if(this.InvokeRequired)
+			{
+				WdInvalidateCallback d = new WdInvalidateCallback(WdInvalidate);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Invalidate();
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdUpdateCallback();
+		public void WdUpdate()
+		{
+			if(this.InvokeRequired)
+			{
+				WdUpdateCallback d = new WdUpdateCallback(WdUpdate);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Update();
 			}
 		}
 		////////////////////////////////////////////////////////////////
