@@ -138,20 +138,6 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void WdFocusCallback();
-		public void WdFocus()		// Since Focus exists, it was referred to as WdFocus. 
-		{
-			if (this.InvokeRequired)
-			{
-				WdFocusCallback d = new WdFocusCallback(WdFocus);
-				this.Invoke(d, new object[] { });
-			}
-			else
-			{
-				this.Focus();
-			}
-		}
-		////////////////////////////////////////////////////////////////
 		delegate void WdScrollToCaretCallback();
 		public void WdScrollToCaret()		// Since ScrollToCaret exists, it was referred to as WdScrollToCaret. 
 		{
@@ -391,6 +377,20 @@ namespace WithDelegate
 				this.SelectionStart = val;
 			}
 		}
-		////////////////////////////////////////////////////////////////
-	}
+        ////////////////////////////////////////////////////////////////
+        delegate void WdFocusCallback();
+        public void WdFocus()
+        {
+            if (this.InvokeRequired)
+            {
+                WdFocusCallback d = new WdFocusCallback(WdFocus);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                this.Focus();
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+    }
 }

@@ -136,19 +136,34 @@ namespace WithDelegate
 				this.Select();
 			}
 		}
-		////////////////////////////////////////////////////////////////
-		delegate void WdSelectAllCallback();
-		public void WdSelectAll()		// Since SelectAll exists, it was referred to as WdSelectAll. 
-		{
-			if (this.InvokeRequired)
-			{
-				WdSelectAllCallback d = new WdSelectAllCallback(WdSelectAll);
-				this.Invoke(d, new object[] { });
-			}
-			else
-			{
-				this.SelectAll();
-			}
-		}
-	}
+        ////////////////////////////////////////////////////////////////
+        delegate void WdSelectAllCallback();
+        public void WdSelectAll()       // Since SelectAll exists, it was referred to as WdSelectAll. 
+        {
+            if (this.InvokeRequired)
+            {
+                WdSelectAllCallback d = new WdSelectAllCallback(WdSelectAll);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                this.SelectAll();
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate void WdFocusCallback();
+        public void WdFocus()
+        {
+            if (this.InvokeRequired)
+            {
+                WdFocusCallback d = new WdFocusCallback(WdFocus);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                this.Focus();
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+    }
 }

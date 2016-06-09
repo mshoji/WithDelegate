@@ -77,5 +77,20 @@ namespace WithDelegate
 				this.BackColor = col;
 			}
 		}
-	}
+        ////////////////////////////////////////////////////////////////
+        delegate void WdFocusCallback();
+        public void WdFocus()
+        {
+            if (this.InvokeRequired)
+            {
+                WdFocusCallback d = new WdFocusCallback(WdFocus);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                this.Focus();
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+    }
 }
