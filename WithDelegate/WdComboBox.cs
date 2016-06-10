@@ -197,5 +197,33 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
+        delegate void WdSetSelectIndexCallback(int index);
+        public void WdSetSelectIndex(int index)
+        {
+            if (this.InvokeRequired)
+            {
+                WdSetSelectIndexCallback d = new WdSetSelectIndexCallback(WdSetSelectIndex);
+                this.Invoke(d, new object[] { index });
+            }
+            else
+            {
+                this.SelectedIndex = index;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate int WdGetSelectIndexCallback();
+        public int WdGetSelectIndex()
+        {
+            if (this.InvokeRequired)
+            {
+                WdGetSelectIndexCallback d = new WdGetSelectIndexCallback(WdGetSelectIndex);
+                return (int)this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                return this.SelectedIndex;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
     }
 }
