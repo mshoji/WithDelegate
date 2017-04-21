@@ -77,20 +77,48 @@ namespace WithDelegate
 				this.BackColor = col;
 			}
 		}
-        ////////////////////////////////////////////////////////////////
-        delegate void WdFocusCallback();
-        public void WdFocus()
-        {
-            if (this.InvokeRequired)
-            {
-                WdFocusCallback d = new WdFocusCallback(WdFocus);
-                this.Invoke(d, new object[] { });
-            }
-            else
-            {
-                this.Focus();
-            }
-        }
-        ////////////////////////////////////////////////////////////////
-    }
+		////////////////////////////////////////////////////////////////
+		delegate void WdFocusCallback();
+		public void WdFocus()
+		{
+			if (this.InvokeRequired)
+			{
+				WdFocusCallback d = new WdFocusCallback(WdFocus);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Focus();
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdInvalidateCallback();
+		public void WdInvalidate()
+		{
+			if (this.InvokeRequired)
+			{
+				WdInvalidateCallback d = new WdInvalidateCallback(WdInvalidate);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Invalidate();
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdUpdateCallback();
+		public void WdUpdate()
+		{
+			if (this.InvokeRequired)
+			{
+				WdUpdateCallback d = new WdUpdateCallback(WdUpdate);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Update();
+			}
+		}
+		////////////////////////////////////////////////////////////////
+	}
 }
