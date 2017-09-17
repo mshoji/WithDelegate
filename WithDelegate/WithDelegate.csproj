@@ -85,6 +85,9 @@
     <Compile Include="WdTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WdTrackBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WdVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -19,6 +19,90 @@ namespace WithDelegate
 	public class WdNumericUpDown : System.Windows.Forms.NumericUpDown
 	{
 		////////////////////////////////////////////////////////////////
+		delegate decimal WdGetValueCallback();
+		public decimal WdGetValue()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetValueCallback d = new WdGetValueCallback(WdGetValue);
+				return (decimal)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Value;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetValueCallback(decimal data);
+		public void WdSetValue(decimal data)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetValueCallback d = new WdSetValueCallback(WdSetValue);
+				this.Invoke(d, new object[] { data });
+			}
+			else
+			{
+				this.Value = data;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate decimal WdGetMinimumCallback();
+		public decimal WdGetMinimum()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetMinimumCallback d = new WdGetMinimumCallback(WdGetMinimum);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Minimum;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetMinimumCallback(decimal data);
+		public void WdSetMinimum(decimal data)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetMinimumCallback d = new WdSetMinimumCallback(WdSetMinimum);
+				this.Invoke(d, new object[] { data });
+			}
+			else
+			{
+				this.Minimum = data;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate decimal WdGetMaximumCallback();
+		public decimal WdGetMaximum()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetMaximumCallback d = new WdGetMaximumCallback(WdGetMaximum);
+				return (decimal)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Maximum;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetMaximumCallback(decimal data);
+		public void WdSetMaximum(decimal data)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetMaximumCallback d = new WdSetMaximumCallback(WdSetMaximum);
+				this.Invoke(d, new object[] { data });
+			}
+			else
+			{
+				this.Maximum = data;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate void WdVisibleCallback(bool flg);
 		public void WdVisible(bool flg)
 		{
