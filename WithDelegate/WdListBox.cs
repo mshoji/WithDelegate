@@ -211,6 +211,20 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetTopIndexCallback(int index);
+		public void WdSetTopIndex(int index)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetTopIndexCallback d = new WdSetTopIndexCallback(WdSetTopIndex);
+				this.Invoke(d, new object[] { index });
+			}
+			else
+			{
+				this.TopIndex = index;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate int WdGetSelectIndexCallback();
 		public int WdGetSelectIndex()
 		{
