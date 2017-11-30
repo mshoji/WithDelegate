@@ -335,5 +335,33 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetFocusedCallback(int index, bool flg);
+		public void WdSetFocused(int index, bool flg)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetFocusedCallback d = new WdSetFocusedCallback(WdSetFocused);
+				this.Invoke(d, new object[] { index, flg });
+			}
+			else
+			{
+				this.Items[index].Focused = flg;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetSelectedCallback(int index, bool flg);
+		public void WdSetSelected(int index, bool flg)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetSelectedCallback d = new WdSetSelectedCallback(WdSetSelected);
+				this.Invoke(d, new object[] { index, flg });
+			}
+			else
+			{
+				this.Items[index].Selected = flg;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 	}
 }
