@@ -306,6 +306,34 @@ namespace WithDelegate
                 this.Focus();
             }
         }
-        ////////////////////////////////////////////////////////////////
-    }
+		////////////////////////////////////////////////////////////////
+		delegate void WdBeginUpdateCallback();
+		public void WdBeginUpdate()
+		{
+			if (this.InvokeRequired)
+			{
+				WdBeginUpdateCallback d = new WdBeginUpdateCallback(WdBeginUpdate);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.BeginUpdate();
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdEndUpdateCallback();
+		public void WdEndUpdate()
+		{
+			if (this.InvokeRequired)
+			{
+				WdEndUpdateCallback d = new WdEndUpdateCallback(WdEndUpdate);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.EndUpdate();
+			}
+		}
+		////////////////////////////////////////////////////////////////
+	}
 }
