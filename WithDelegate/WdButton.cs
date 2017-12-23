@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace WithDelegate
 {
@@ -118,6 +119,20 @@ namespace WithDelegate
                 this.Focus();
             }
         }
-        ////////////////////////////////////////////////////////////////
-    }
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetForeColorCallback(Color color);
+		public void WdSetForeColor(Color color)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetForeColorCallback d = new WdSetForeColorCallback(WdSetForeColor);
+				this.Invoke(d, new object[] { color });
+			}
+			else
+			{
+				this.ForeColor = color;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+	}
 }
