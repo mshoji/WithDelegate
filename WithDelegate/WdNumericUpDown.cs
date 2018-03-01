@@ -18,7 +18,32 @@ namespace WithDelegate
 {
 	public class WdNumericUpDown : System.Windows.Forms.NumericUpDown
 	{
-		////////////////////////////////////////////////////////////////
+        public override string Text
+        {
+            get
+            {
+                return base.Text;
+            }
+            set
+            {
+                base.Text = value;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate string WdGetTextCallback();
+        public string WdGetText()
+        {
+            if (this.InvokeRequired)
+            {
+                WdGetTextCallback d = new WdGetTextCallback(WdGetText);
+                return (string)this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                return this.Text;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 		delegate decimal WdGetValueCallback();
 		public decimal WdGetValue()
 		{
