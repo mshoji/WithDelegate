@@ -78,6 +78,34 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetImageCallback(Image image);
+		public void WdSetImage(Image image)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetImageCallback d = new WdSetImageCallback(WdSetImage);
+				this.Invoke(d, new object[] { image });
+			}
+			else
+			{
+				this.Image = image;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate Image WdGetImageCallback();
+		public Image WdGetImage()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetImageCallback d = new WdGetImageCallback(WdGetImage);
+				return (Image)this.Invoke(d, new object[] {  });
+			}
+			else
+			{
+				return this.Image;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate void WdFocusCallback();
 		public void WdFocus()
 		{
