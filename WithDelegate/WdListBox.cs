@@ -186,7 +186,7 @@ namespace WithDelegate
 		delegate int WdAddItemCallback(object item);
 		public int WdAddItem(object item)
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				WdAddItemCallback d = new WdAddItemCallback(WdAddItem);
 				return (int)this.Invoke(d, new object[] { item });
@@ -194,6 +194,20 @@ namespace WithDelegate
 			else
 			{
 				return this.Items.Add(item);
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate object WdGetItemCallback(int index);
+		public object WdGetItem(int index)
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetItemCallback d = new WdGetItemCallback(WdGetItem);
+				return (object)this.Invoke(d, new object[] { index });
+			}
+			else
+			{
+				return this.Items[index];
 			}
 		}
 		////////////////////////////////////////////////////////////////
