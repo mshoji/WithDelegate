@@ -110,7 +110,7 @@ namespace WithDelegate
 		delegate DateTime WdGetValueCallback();
 		public DateTime WdGetValue()
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				WdGetValueCallback d = new WdGetValueCallback(WdGetValue);
 				return (DateTime)this.Invoke(d, new object[] { });
@@ -120,8 +120,22 @@ namespace WithDelegate
 				return this.Value;
 			}
 		}
-        ////////////////////////////////////////////////////////////////
-        delegate void WdFocusCallback();
+		////////////////////////////////////////////////////////////////
+		delegate DateTime WdSetValueCallback(DateTime dt);
+		public DateTime WdSetValue(DateTime dt)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetValueCallback d = new WdSetValueCallback(WdSetValue);
+				return (DateTime)this.Invoke(d, new object[] {dt});
+			}
+			else
+			{
+				return this.Value = dt;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdFocusCallback();
         public void WdFocus()
         {
             if (this.InvokeRequired)
