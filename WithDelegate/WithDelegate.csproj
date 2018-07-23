@@ -55,6 +55,9 @@
     <Compile Include="WdDateTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WdGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WdHScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
