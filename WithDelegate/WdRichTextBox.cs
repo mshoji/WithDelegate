@@ -391,6 +391,20 @@ namespace WithDelegate
                 this.Focus();
             }
         }
-        ////////////////////////////////////////////////////////////////
-    }
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetSizeCallback(Size size);
+		public void WdSetSize(Size size)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetSizeCallback d = new WdSetSizeCallback(WdSetSize);
+				this.Invoke(d, new object[] { size });
+			}
+			else
+			{
+				this.Size = size;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+	}
 }

@@ -49,5 +49,21 @@ namespace WithDelegate
                 this.Enabled = flg;
             }
         }
-    }
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetSizeCallback(Size size);
+		public void WdSetSize(Size size)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		{
+			System.Windows.Forms.ToolStrip toolStrip = this.GetCurrentParent();
+			if (toolStrip.InvokeRequired)
+			{
+				WdSetSizeCallback d = new WdSetSizeCallback(WdSetSize);
+				toolStrip.Invoke(d, new object[] { size });
+			}
+			else
+			{
+				this.Size = size;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+	}
 }
