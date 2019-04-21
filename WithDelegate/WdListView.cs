@@ -236,6 +236,52 @@ namespace WithDelegate
 				this.Items[index].ForeColor = col;
 			}
 		}
+
+		////////////////////////////////////////////////////////////////
+		delegate void WdUseItemStyleForSubItemsCallback(int index, bool flg);
+		public void WdUseItemStyleForSubItems(int index, bool flg)       // Since ForeColor exists, it was referred to as WdForeColor. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdUseItemStyleForSubItemsCallback d = new WdUseItemStyleForSubItemsCallback(WdUseItemStyleForSubItems);
+				this.Invoke(d, new object[] { index, flg });
+			}
+			else
+			{
+				this.Items[index].UseItemStyleForSubItems = flg;
+			}
+		}
+
+		////////////////////////////////////////////////////////////////
+		delegate void WdForeColor2Callback(int index, int indexSub, Color col);
+		public void WdForeColor(int index, int indexSub, Color col)       // Since ForeColor exists, it was referred to as WdForeColor. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdForeColor2Callback d = new WdForeColor2Callback(WdForeColor);
+				this.Invoke(d, new object[] { index, indexSub, col });
+			}
+			else
+			{
+				this.Items[index].SubItems[indexSub].ForeColor = col;
+			}
+		}
+
+		////////////////////////////////////////////////////////////////
+		delegate void WdForeBackColor2Callback(int index, int indexSub, Color col);
+		public void WdForeBackColor(int index, int indexSub, Color col)       // Since ForeColor exists, it was referred to as WdForeColor. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdForeBackColor2Callback d = new WdForeBackColor2Callback(WdForeBackColor);
+				this.Invoke(d, new object[] { index, indexSub, col });
+			}
+			else
+			{
+				this.Items[index].SubItems[indexSub].BackColor = col;
+			}
+		}
+
 		////////////////////////////////////////////////////////////////
 		delegate int WdGetItemsCountCallback();
 		public int WdGetItemsCount()		// Since GetItemsCount exists, it was referred to as WdGetItemsCount. 
