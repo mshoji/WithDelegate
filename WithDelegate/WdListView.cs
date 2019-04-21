@@ -238,12 +238,12 @@ namespace WithDelegate
 		}
 
 		////////////////////////////////////////////////////////////////
-		delegate void WdUseItemStyleForSubItemsCallback(int index, bool flg);
-		public void WdUseItemStyleForSubItems(int index, bool flg)       // Since ForeColor exists, it was referred to as WdForeColor. 
+		delegate void WdSetUseItemStyleForSubItemsCallback(int index, bool flg);
+		public void WdSetUseItemStyleForSubItems(int index, bool flg)       // Since ForeColor exists, it was referred to as WdForeColor. 
 		{
 			if (this.InvokeRequired)
 			{
-				WdUseItemStyleForSubItemsCallback d = new WdUseItemStyleForSubItemsCallback(WdUseItemStyleForSubItems);
+				WdSetUseItemStyleForSubItemsCallback d = new WdSetUseItemStyleForSubItemsCallback(WdSetUseItemStyleForSubItems);
 				this.Invoke(d, new object[] { index, flg });
 			}
 			else
@@ -253,12 +253,12 @@ namespace WithDelegate
 		}
 
 		////////////////////////////////////////////////////////////////
-		delegate void WdForeColor2Callback(int index, int indexSub, Color col);
-		public void WdForeColor(int index, int indexSub, Color col)       // Since ForeColor exists, it was referred to as WdForeColor. 
+		delegate void WdSetForeColor2Callback(int index, int indexSub, Color col);
+		public void WdSetForeColor(int index, int indexSub, Color col)       // Since ForeColor exists, it was referred to as WdForeColor. 
 		{
 			if (this.InvokeRequired)
 			{
-				WdForeColor2Callback d = new WdForeColor2Callback(WdForeColor);
+				WdSetForeColor2Callback d = new WdSetForeColor2Callback(WdSetForeColor);
 				this.Invoke(d, new object[] { index, indexSub, col });
 			}
 			else
@@ -268,12 +268,12 @@ namespace WithDelegate
 		}
 
 		////////////////////////////////////////////////////////////////
-		delegate void WdForeBackColor2Callback(int index, int indexSub, Color col);
-		public void WdForeBackColor(int index, int indexSub, Color col)       // Since ForeColor exists, it was referred to as WdForeColor. 
+		delegate void WdSetBackColor2Callback(int index, int indexSub, Color col);
+		public void WdSetBackColor(int index, int indexSub, Color col)       // Since ForeColor exists, it was referred to as WdForeColor. 
 		{
 			if (this.InvokeRequired)
 			{
-				WdForeBackColor2Callback d = new WdForeBackColor2Callback(WdForeBackColor);
+				WdSetBackColor2Callback d = new WdSetBackColor2Callback(WdSetBackColor);
 				this.Invoke(d, new object[] { index, indexSub, col });
 			}
 			else
