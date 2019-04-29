@@ -1,28 +1,13 @@
-﻿/**
-WithDelegate
-
-Copyright (c) 2012 Masahiko SHOJI
-
-This software is released under the MIT License.
-
-http://opensource.org/licenses/mit-license.php
-
-*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Drawing;
 
 namespace WithDelegate
 {
-	public class WdPictureBox : System.Windows.Forms.PictureBox
+	public class WdPanel : System.Windows.Forms.Panel
 	{
 		///////////////////////////////////////////////////////////////////////
 		delegate void WdRefreshCallback();
-		public void WdRefresh()		// Since Refresh exists, it was referred to as WdRefresh. 
+		public void WdRefresh()     // Since Refresh exists, it was referred to as WdRefresh. 
 		{
 			if (this.InvokeRequired)
 			{
@@ -38,7 +23,7 @@ namespace WithDelegate
 		delegate void WdVisibleCallback(bool flg);
 		public void WdVisible(bool flg)
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				WdVisibleCallback d = new WdVisibleCallback(WdVisible);
 				this.Invoke(d, new object[] { flg });
@@ -49,26 +34,10 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-#if false	// 旧バージョンとの互換性維持のために残すかもしれない
-		delegate void SetBackColorCallback(Color col);
-		public void SetBackColor(Color col)
-		{
-			if(this.InvokeRequired)
-			{
-				SetBackColorCallback d = new SetBackColorCallback(SetBackColor);
-				this.Invoke(d, new object[] { col });
-			}
-			else
-			{
-				this.BackColor = col;
-			}
-		}
-#endif
-		////////////////////////////////////////////////////////////////
 		delegate void WdSetBackColorCallback(Color col);
 		public void WdSetBackColor(Color col)
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				WdSetBackColorCallback d = new WdSetBackColorCallback(WdSetBackColor);
 				this.Invoke(d, new object[] { col });
@@ -76,34 +45,6 @@ namespace WithDelegate
 			else
 			{
 				this.BackColor = col;
-			}
-		}
-		////////////////////////////////////////////////////////////////
-		delegate void WdSetImageCallback(Image image);
-		public void WdSetImage(Image image)
-		{
-			if (this.InvokeRequired)
-			{
-				WdSetImageCallback d = new WdSetImageCallback(WdSetImage);
-				this.Invoke(d, new object[] { image });
-			}
-			else
-			{
-				this.Image = image;
-			}
-		}
-		////////////////////////////////////////////////////////////////
-		delegate Image WdGetImageCallback();
-		public Image WdGetImage()
-		{
-			if (this.InvokeRequired)
-			{
-				WdGetImageCallback d = new WdGetImageCallback(WdGetImage);
-				return (Image)this.Invoke(d, new object[] {  });
-			}
-			else
-			{
-				return this.Image;
 			}
 		}
 		////////////////////////////////////////////////////////////////
@@ -163,17 +104,17 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate void WdSetSizeModeCallback(PictureBoxSizeMode mode);
-		public void WdSetSizeMode(PictureBoxSizeMode mode)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		delegate Size WdGetSizeCallback();
+		public Size WdGetSize()       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
 		{
 			if (this.InvokeRequired)
 			{
-				WdSetSizeModeCallback d = new WdSetSizeModeCallback(WdSetSizeMode);
-				this.Invoke(d, new object[] { mode });
+				WdGetSizeCallback d = new WdGetSizeCallback(WdGetSize);
+				return (Size)this.Invoke(d, new object[] {  });
 			}
 			else
 			{
-				this.SizeMode = mode;
+				return this.Size;
 			}
 		}
 		////////////////////////////////////////////////////////////////
@@ -202,6 +143,62 @@ namespace WithDelegate
 			else
 			{
 				this.Name = name;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdControlsRemoveCallback(Control control);
+		public void WdControlsRemove(Control control)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdControlsRemoveCallback d = new WdControlsRemoveCallback(WdControlsRemove);
+				this.Invoke(d, new object[] { control });
+			}
+			else
+			{
+				this.Controls.Remove(control);
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdControlsAddCallback(Control control);
+		public void WdControlsAdd(Control control)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdControlsAddCallback d = new WdControlsAddCallback(WdControlsAdd);
+				this.Invoke(d, new object[] { control });
+			}
+			else
+			{
+				this.Controls.Add(control);
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetAutoSizeCallback(bool bFlg);
+		public void WdSetAutoSize(bool bFlg)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetAutoSizeCallback d = new WdSetAutoSizeCallback(WdSetAutoSize);
+				this.Invoke(d, new object[] { bFlg });
+			}
+			else
+			{
+				this.AutoSize = bFlg;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetAutoScrollCallback(bool bFlg);
+		public void WdSetAutoScroll(bool bFlg)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetAutoScrollCallback d = new WdSetAutoScrollCallback(WdSetAutoScroll);
+				this.Invoke(d, new object[] { bFlg });
+			}
+			else
+			{
+				this.AutoScroll= bFlg;
 			}
 		}
 		////////////////////////////////////////////////////////////////

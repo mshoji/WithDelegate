@@ -73,6 +73,9 @@
     <Compile Include="WdNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WdPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WdPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
