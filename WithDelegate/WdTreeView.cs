@@ -124,6 +124,20 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdNodesClearCallback();
+		public void WdNodesClear()
+		{
+			if (this.InvokeRequired)
+			{
+				WdNodesClearCallback d = new WdNodesClearCallback(WdNodesClear);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Nodes.Clear();
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate TreeNode WdGetTopNodeCallback();
 		public TreeNode WdGetTopNode()
 		{
@@ -152,12 +166,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate bool WdNodesAddCallback(TreeNode nodeChild);
-		public bool WdNodesAdd(TreeNode nodeChild)
+		delegate bool WdSelectedNodeNodesAddCallback(TreeNode nodeChild);
+		public bool WdSelectedNodeNodesAdd(TreeNode nodeChild)
 		{
 			if (this.InvokeRequired)
 			{
-				WdNodesAddCallback d = new WdNodesAddCallback(WdNodesAdd);
+				WdSelectedNodeNodesAddCallback d = new WdSelectedNodeNodesAddCallback(WdSelectedNodeNodesAdd);
 				return (bool)this.Invoke(d, new object[] { nodeChild });
 			}
 			else
@@ -165,7 +179,7 @@ namespace WithDelegate
 				if (this.SelectedNode == null)
 					return false;
 
-				this.Nodes.Add(nodeChild);
+				this.SelectedNode.Nodes.Add(nodeChild);
 				return true;
 			}
 		}
@@ -180,9 +194,6 @@ namespace WithDelegate
 			}
 			else
 			{
-				//if (this.SelectedNode == null)
-				//	return false;
-
 				this.Nodes.AddRange(nodes);
 				return true;
 			}
