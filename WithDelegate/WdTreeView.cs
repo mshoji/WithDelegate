@@ -136,12 +136,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate bool WdAddNodeCallback(TreeNode nodeChild);
-		public bool WdAddNode(TreeNode nodeChild)
+		delegate bool WdNodesAddCallback(TreeNode nodeChild);
+		public bool WdNodesAdd(TreeNode nodeChild)
 		{
 			if (this.InvokeRequired)
 			{
-				WdAddNodeCallback d = new WdAddNodeCallback(WdAddNode);
+				WdNodesAddCallback d = new WdNodesAddCallback(WdNodesAdd);
 				return (bool)this.Invoke(d, new object[] { nodeChild });
 			}
 			else
@@ -154,6 +154,25 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate bool WdNodesAddRangeCallback(TreeNode[] nodes);
+		public bool WdNodesAddRange(TreeNode[] nodes)
+		{
+			if (this.InvokeRequired)
+			{
+				WdNodesAddRangeCallback d = new WdNodesAddRangeCallback(WdNodesAddRange);
+				return (bool)this.Invoke(d, new object[] { nodes });
+			}
+			else
+			{
+				if (this.SelectedNode == null)
+					return false;
+
+				this.Nodes.AddRange(nodes);
+				return true;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+#if false
 		delegate bool WdAddNodeToNodeCollectionCallback(TreeNodeCollection treeNodeCollection, TreeNode nodeChild);
 		public bool WdAddNodeToNodeCollection(TreeNodeCollection treeNodeCollection,TreeNode nodeChild)
 		{
@@ -171,5 +190,6 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+#endif
 	}
 }
