@@ -65,6 +65,7 @@ namespace WithDelegate
 				this.Enabled = flg;
 			}
 		}
+#if false
 		////////////////////////////////////////////////////////////////
 		delegate void WdSelectCallback();
 		public void WdSelect()      // Since Select exists, it was referred to as WdSelect. 
@@ -77,6 +78,35 @@ namespace WithDelegate
 			else
 			{
 				this.Select();
+			}
+		}
+#endif
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetSelectNodeCallback(TreeNode node);
+		public void WdSetSelectNode(TreeNode node)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetSelectNodeCallback d = new WdSetSelectNodeCallback(WdSetSelectNode);
+				this.Invoke(d, new object[] { node });
+			}
+			else
+			{
+				this.SelectedNode = node;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate TreeNode WdGetSelectNodeCallback();
+		public TreeNode WdGetSelectNode()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetSelectNodeCallback d = new WdGetSelectNodeCallback(WdGetSelectNode);
+				return (TreeNode)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.SelectedNode;
 			}
 		}
 		////////////////////////////////////////////////////////////////
@@ -164,8 +194,8 @@ namespace WithDelegate
 			}
 			else
 			{
-				if (this.SelectedNode == null)
-					return false;
+				//if (this.SelectedNode == null)
+				//	return false;
 
 				this.Nodes.AddRange(nodes);
 				return true;
