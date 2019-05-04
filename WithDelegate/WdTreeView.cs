@@ -82,12 +82,12 @@ namespace WithDelegate
 		}
 #endif
 		////////////////////////////////////////////////////////////////
-		delegate void WdSetSelectNodeCallback(TreeNode node);
-		public void WdSetSelectNode(TreeNode node)
+		delegate void WdSetSelectedNodeCallback(TreeNode node);
+		public void WdSetSelectedNode(TreeNode node)
 		{
 			if (this.InvokeRequired)
 			{
-				WdSetSelectNodeCallback d = new WdSetSelectNodeCallback(WdSetSelectNode);
+				WdSetSelectedNodeCallback d = new WdSetSelectedNodeCallback(WdSetSelectedNode);
 				this.Invoke(d, new object[] { node });
 			}
 			else
@@ -96,12 +96,12 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-		delegate TreeNode WdGetSelectNodeCallback();
-		public TreeNode WdGetSelectNode()
+		delegate TreeNode WdGetSelectedNodeCallback();
+		public TreeNode WdGetSelectedNode()
 		{
 			if (this.InvokeRequired)
 			{
-				WdGetSelectNodeCallback d = new WdGetSelectNodeCallback(WdGetSelectNode);
+				WdGetSelectedNodeCallback d = new WdGetSelectedNodeCallback(WdGetSelectedNode);
 				return (TreeNode)this.Invoke(d, new object[] { });
 			}
 			else
@@ -149,20 +149,6 @@ namespace WithDelegate
 			else
 			{
 				return this.Nodes;
-			}
-		}
-		////////////////////////////////////////////////////////////////
-		delegate TreeNode WdGetSelectedNodeCallback();
-		public TreeNode WdGetSelectedNode()
-		{
-			if (this.InvokeRequired)
-			{
-				WdGetSelectedNodeCallback d = new WdGetSelectedNodeCallback(WdGetSelectedNode);
-				return (TreeNode)this.Invoke(d, new object[] { });
-			}
-			else
-			{
-				return this.SelectedNode;
 			}
 		}
 		////////////////////////////////////////////////////////////////
