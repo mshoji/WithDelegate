@@ -50,7 +50,21 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-#if false	// 旧バージョンとの互換性維持のために残すかもしれない
+		delegate int WdGetMaximumCallback();
+		public int WdGetMaximum()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetMaximumCallback d = new WdGetMaximumCallback(WdGetMaximum);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Maximum;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+#if false  // 旧バージョンとの互換性維持のために残すかもしれない
 		delegate void SetMinimumCallback(int val);
 		public void SetMinimum(int val)
 		{
@@ -107,6 +121,20 @@ namespace WithDelegate
 			else
 			{
 				this.Value = val;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate int WdGetValueCallback();
+		public int WdGetValue()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetValueCallback d = new WdGetValueCallback(WdGetValue);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Value;
 			}
 		}
 		////////////////////////////////////////////////////////////////
