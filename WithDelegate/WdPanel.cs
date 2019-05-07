@@ -202,5 +202,89 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetHorizontalScrollValueCallback(int val);
+		public void WdSetHorizontalScrollValue(int val)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetHorizontalScrollValueCallback d = new WdSetHorizontalScrollValueCallback(WdSetHorizontalScrollValue);
+				this.Invoke(d, new object[] { val });
+			}
+			else
+			{
+				this.HorizontalScroll.Value = val;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate int WdGetHorizontalScrollValueCallback();
+		public int WdGetHorizontalScrollValue()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetHorizontalScrollValueCallback d = new WdGetHorizontalScrollValueCallback(WdGetHorizontalScrollValue);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.HorizontalScroll.Value;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetVerticalScrollValueCallback(int val);
+		public void WdSetVerticalScrollValue(int val)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetVerticalScrollValueCallback d = new WdSetVerticalScrollValueCallback(WdSetVerticalScrollValue);
+				this.Invoke(d, new object[] { val });
+			}
+			else
+			{
+				this.VerticalScroll.Value = val;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate int WdGetVerticalScrollValueCallback();
+		public int WdGetVerticalScrollValue()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetVerticalScrollValueCallback d = new WdGetVerticalScrollValueCallback(WdGetVerticalScrollValue);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.VerticalScroll.Value;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetAutoScrollPositionCallback(Point point);
+		public void WdSetAutoScrollPosition(Point point)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetAutoScrollPositionCallback d = new WdSetAutoScrollPositionCallback(WdSetAutoScrollPosition);
+				this.Invoke(d, new object[] { point });
+			}
+			else
+			{
+				this.AutoScrollPosition = point;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate Point WdGetAutoScrollPositionCallback();
+		public Point WdGetAutoScrollPosition()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetAutoScrollPositionCallback d = new WdGetAutoScrollPositionCallback(WdGetAutoScrollPosition);
+				return (Point)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.AutoScrollPosition;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 	}
 }
