@@ -191,6 +191,20 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate Point WdGetLocationCallback();
+		public Point WdGetLocation()       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetLocationCallback d = new WdGetLocationCallback(WdGetLocation);
+				return (Point)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Location;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate void WdSetNameCallback(string name);
 		public void WdSetName(string name)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
 		{
@@ -202,6 +216,34 @@ namespace WithDelegate
 			else
 			{
 				this.Name = name;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetParentCallback(Control control);
+		public void WdSetParent(Control control)
+		{
+			if (this.InvokeRequired)
+			{
+				WdSetParentCallback d = new WdSetParentCallback(WdSetParent);
+				this.Invoke(d, new object[] { control });
+			}
+			else
+			{
+				this.Parent = control;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate Control WdGetParentCallback();
+		public Control WdGetParent()
+		{
+			if (this.InvokeRequired)
+			{
+				WdGetParentCallback d = new WdGetParentCallback(WdGetParent);
+				return (Control)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Parent;
 			}
 		}
 		////////////////////////////////////////////////////////////////
