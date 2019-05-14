@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace WithDelegate
 {
-	class WdTabPage : System.Windows.Forms.TabPage
+	public class WdTabPage : System.Windows.Forms.TabPage
 	{
 		////////////////////////////////////////////////////////////////
 		delegate void WdEnableCallback(bool flg);
