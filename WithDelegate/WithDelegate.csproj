@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WdButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -86,6 +89,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WdRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WdTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WdTextBox.cs">

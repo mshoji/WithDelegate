@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace WithDelegate
 {
-	public class WdPanel : System.Windows.Forms.Panel
+	class WdTabPage : System.Windows.Forms.TabPage
 	{
 		////////////////////////////////////////////////////////////////
 		delegate void WdEnableCallback(bool flg);
@@ -124,7 +124,7 @@ namespace WithDelegate
 			if (this.InvokeRequired)
 			{
 				WdGetSizeCallback d = new WdGetSizeCallback(WdGetSize);
-				return (Size)this.Invoke(d, new object[] {  });
+				return (Size)this.Invoke(d, new object[] { });
 			}
 			else
 			{
@@ -212,7 +212,7 @@ namespace WithDelegate
 			}
 			else
 			{
-				this.AutoScroll= bFlg;
+				this.AutoScroll = bFlg;
 			}
 		}
 		////////////////////////////////////////////////////////////////
