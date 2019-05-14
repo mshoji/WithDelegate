@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace WithDelegate
 {
-	public class WdTabControl : System.Windows.Forms.TabControl
+	public class WdControl : System.Windows.Forms.Control
 	{
 		////////////////////////////////////////////////////////////////
 		delegate void WdDrawToBitmapCallback(Bitmap bmp, Rectangle rect);

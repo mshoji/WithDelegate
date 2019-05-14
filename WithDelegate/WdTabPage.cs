@@ -6,6 +6,21 @@ namespace WithDelegate
 	public class WdTabPage : System.Windows.Forms.TabPage
 	{
 		////////////////////////////////////////////////////////////////
+		delegate void WdDrawToBitmapCallback(Bitmap bmp, Rectangle rect);
+		public void WdDrawToBitmap(Bitmap bmp, Rectangle rect)
+		{
+			if (this.InvokeRequired)
+			{
+				WdDrawToBitmapCallback d = new WdDrawToBitmapCallback(WdDrawToBitmap);
+				this.Invoke(d, new object[] { bmp, rect });
+			}
+			else
+			{
+				//panel.DrawToBitmap(bmp, new Rectangle(0, 0, panel.Width, panel.Height));
+				this.DrawToBitmap(bmp, rect);
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate void WdEnableCallback(bool flg);
 		public void WdEnable(bool flg)
 		{
