@@ -123,7 +123,7 @@ namespace WithDelegate
 		delegate void WdSetForeColorCallback(Color color);
 		public void WdSetForeColor(Color color)
 		{
-			if (this.InvokeRequired)
+			if(this.InvokeRequired)
 			{
 				WdSetForeColorCallback d = new WdSetForeColorCallback(WdSetForeColor);
 				this.Invoke(d, new object[] { color });
@@ -131,6 +131,20 @@ namespace WithDelegate
 			else
 			{
 				this.ForeColor = color;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetBackColorCallback(Color color);
+		public void WdSetBackColor(Color color)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetBackColorCallback d = new WdSetBackColorCallback(WdSetBackColor);
+				this.Invoke(d, new object[] { color });
+			}
+			else
+			{
+				this.BackColor = color;
 			}
 		}
 		////////////////////////////////////////////////////////////////
