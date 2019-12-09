@@ -195,6 +195,20 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdItemsClearCallback();
+		public void WdItemsClear()       // Since RemoveAt exists, it was referred to as WdRemoveAt. 
+		{
+			if (this.InvokeRequired)
+			{
+				WdItemsClearCallback d = new WdItemsClearCallback(WdClear);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Items.Clear();
+			}
+		}
+		////////////////////////////////////////////////////////////////
 		delegate int WdGetSelectedItemsCountCallback();
 		public int WdGetSelectedItemsCount()		// Since GetSelectedItemsCount exists, it was referred to as WdGetSelectedItemsCount. 
 		{
@@ -335,11 +349,12 @@ namespace WithDelegate
 			}
 			else
 			{
-				this.Items.Clear();
+				//this.Items.Clear();
+				this.Clear();
 			}
 		}
-        ////////////////////////////////////////////////////////////////
-        delegate void WdFocusCallback();
+		////////////////////////////////////////////////////////////////
+		delegate void WdFocusCallback();
         public void WdFocus()
         {
             if (this.InvokeRequired)
