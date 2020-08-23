@@ -438,5 +438,33 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate string WdItemsSubItemsGetTextCallback(int offset1, int offset2);
+		public string WdItemsSubItemsGetText(int offset1, int offset2)
+		{
+			if (this.InvokeRequired)
+			{
+				WdItemsSubItemsGetTextCallback d = new WdItemsSubItemsGetTextCallback(WdItemsSubItemsGetText);
+				return (string)this.Invoke(d, new object[] { offset1, offset2 });
+			}
+			else
+			{
+				return (string)this.Items[offset1].SubItems[offset2].Text;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdItemsSubItemsSetTextCallback(int offset1, int offset2, string str);
+		public void WdItemsSubItemsSetText(int offset1, int offset2, string str)
+		{
+			if (this.InvokeRequired)
+			{
+				WdItemsSubItemsSetTextCallback d = new WdItemsSubItemsSetTextCallback(WdItemsSubItemsSetText);
+				this.Invoke(d, new object[] { offset1, offset2 });
+			}
+			else
+			{
+				this.Items[offset1].SubItems[offset2].Text = str;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 	}
 }
