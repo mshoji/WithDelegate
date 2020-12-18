@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace WithDelegate
 {
@@ -437,6 +438,20 @@ namespace WithDelegate
 				this.Size = size;
 			}
 		}
-		////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
+        delegate void WdSetItemsCallback(int index, ListViewItem item);
+        public void WdSetItems(int index, ListViewItem item)
+        {
+            if (this.InvokeRequired)
+            {
+                WdSetItemsCallback d = new WdSetItemsCallback(WdSetItems);
+                this.Invoke(d, new object[] { index, item });
+            }
+            else
+            {
+                this.Items[index] = item;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 	}
 }
