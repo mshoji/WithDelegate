@@ -481,5 +481,33 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
+        delegate void WdItemsEnsureVisibleCallback(int index);
+        public void WdItemsEnsureVisible(int index)
+        {
+            if (this.InvokeRequired)
+            {
+                WdItemsEnsureVisibleCallback d = new WdItemsEnsureVisibleCallback(WdItemsEnsureVisible);
+                this.Invoke(d, new object[] { index });
+            }
+            else
+            {
+                this.Items[index].EnsureVisible();
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate void WdItemsLastEnsureVisibleCallback();
+        public void WdItemsLastEnsureVisible()
+        {
+            if (this.InvokeRequired)
+            {
+                WdItemsLastEnsureVisibleCallback d = new WdItemsLastEnsureVisibleCallback(WdItemsLastEnsureVisible);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                this.Items[this.WdGetItemsCount() - 1].EnsureVisible();
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 	}
 }
