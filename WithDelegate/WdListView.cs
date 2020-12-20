@@ -278,6 +278,7 @@ namespace WithDelegate
             }
             else
             {
+                this.Items[index].UseItemStyleForSubItems = false;
                 this.Items[index].SubItems[indexSub].ForeColor = col;
             }
         }
@@ -293,6 +294,7 @@ namespace WithDelegate
             }
             else
             {
+                this.Items[index].UseItemStyleForSubItems = false;
                 this.Items[index].SubItems[indexSub].BackColor = col;
             }
         }
