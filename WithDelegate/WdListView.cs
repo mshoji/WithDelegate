@@ -328,6 +328,23 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
+        delegate void WdRemoveAllCallback();
+        public void WdRemoveAll()
+        {
+            if (this.InvokeRequired)
+            {
+                WdRemoveAllCallback d = new WdRemoveAllCallback(WdRemoveAll);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                for(int i = this.Items.Count - 1; i>= 0; i--)
+				{
+                    this.Items.Remove(this.Items[i]);
+				}
+            }
+        }
+        ////////////////////////////////////////////////////////////////
         delegate void WdInsertCallback(int index, string str);
         public void WdInsert(int index, string str)		// Since Insert exists, it was referred to as WdInsert. 
         {
