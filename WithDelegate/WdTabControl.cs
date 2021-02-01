@@ -202,20 +202,48 @@ namespace WithDelegate
 				this.Controls.Add(control);
 			}
 		}
-		////////////////////////////////////////////////////////////////
-		delegate void WdSetAutoSizeCallback(bool bFlg);
-		public void WdSetAutoSize(bool bFlg)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
-		{
-			if (this.InvokeRequired)
-			{
-				WdSetAutoSizeCallback d = new WdSetAutoSizeCallback(WdSetAutoSize);
-				this.Invoke(d, new object[] { bFlg });
-			}
-			else
-			{
-				this.AutoSize = bFlg;
-			}
-		}
-		////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
+        delegate void WdSetAutoSizeCallback(bool bFlg);
+        public void WdSetAutoSize(bool bFlg)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+        {
+            if (this.InvokeRequired)
+            {
+                WdSetAutoSizeCallback d = new WdSetAutoSizeCallback(WdSetAutoSize);
+                this.Invoke(d, new object[] { bFlg });
+            }
+            else
+            {
+                this.AutoSize = bFlg;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate void WdSetSelectedTabCallback(TabPage tabPage);
+        public void WdSetSelectedTab(TabPage tabPage)       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+        {
+            if (this.InvokeRequired)
+            {
+                WdSetSelectedTabCallback d = new WdSetSelectedTabCallback(WdSetSelectedTab);
+                this.Invoke(d, new object[] { tabPage });
+            }
+            else
+            {
+                this.SelectedTab = tabPage;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate TabPage WdGetSelectedTabCallback();
+        public TabPage WdGetSelectedTab()       // Since SelectionStart exists, it was referred to as WdSelectionStart. 
+        {
+            if (this.InvokeRequired)
+            {
+                WdGetSelectedTabCallback d = new WdGetSelectedTabCallback(WdGetSelectedTab);
+                return (TabPage)this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                return this.SelectedTab;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 	}
 }
