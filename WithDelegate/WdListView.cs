@@ -528,5 +528,33 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
+        delegate void WdAutoResizeColumnCallback(int columnindex, ColumnHeaderAutoResizeStyle style);
+        public void WdAutoResizeColumn(int columnindex, ColumnHeaderAutoResizeStyle style)
+        {
+            if (this.InvokeRequired)
+            {
+                WdAutoResizeColumnCallback d = new WdAutoResizeColumnCallback(WdAutoResizeColumn);
+                this.Invoke(d, new object[] { columnindex, style });
+            }
+            else
+            {
+                this.AutoResizeColumn(columnindex, style);
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate void WdSetColumnWidthCallback(int columnindex, int width);
+        public void WdSetColumnWidth(int columnindex, int width)
+        {
+            if (this.InvokeRequired)
+            {
+                WdSetColumnWidthCallback d = new WdSetColumnWidthCallback(WdSetColumnWidth);
+                this.Invoke(d, new object[] { columnindex, width });
+            }
+            else
+            {
+                this.Columns[columnindex].Width = width;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 	}
 }
