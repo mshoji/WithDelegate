@@ -268,22 +268,22 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
-        delegate string WdIsItemStrCallback(string str);
-        public string WdIsItemStr(string str)
+        delegate bool WdIsItemStrCallback(string str);
+        public bool WdIsItemStr(string str)
         {
             if (this.InvokeRequired)
             {
                 WdIsItemStrCallback d = new WdIsItemStrCallback(WdIsItemStr);
-                return (string)this.Invoke(d, new object[] { });
+                return (bool)this.Invoke(d, new object[] { });
             }
             else
             {
                 foreach(object o in this.Items)
                 {
                     if (str.CompareTo((string)o) == 0)
-                        return str;
+                        return true;
                 }
-                return null;
+                return false;
             }
         }
         ////////////////////////////////////////////////////////////////
