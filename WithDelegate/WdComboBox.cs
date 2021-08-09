@@ -239,6 +239,53 @@ namespace WithDelegate
 				this.Size = size;
 			}
 		}
-		////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
+        delegate int WdGetCountCallback();
+        public int WdGetCount()
+        {
+            if (this.InvokeRequired)
+            {
+                WdGetCountCallback d = new WdGetCountCallback(WdGetCount);
+                return (int)this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                return this.Items.Count;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate object WdGetItemCallback(int index);
+        public object WdGetItem(int index)
+        {
+            if (this.InvokeRequired)
+            {
+                WdGetItemCallback d = new WdGetItemCallback(WdGetItem);
+                return this.Invoke(d, new object[] { index });
+            }
+            else
+            {
+                return this.Items[index];
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+        delegate string WdIsItemStrCallback(string str);
+        public string WdIsItemStr(string str)
+        {
+            if (this.InvokeRequired)
+            {
+                WdIsItemStrCallback d = new WdIsItemStrCallback(WdIsItemStr);
+                return (string)this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                foreach(object o in this.Items)
+                {
+                    if (str.CompareTo((string)o) == 0)
+                        return str;
+                }
+                return null;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 	}
 }
