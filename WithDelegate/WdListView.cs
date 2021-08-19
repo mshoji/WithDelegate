@@ -556,5 +556,26 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
+        delegate int WdGetIndexByStringCallback(string str, int num = 0);
+        public int WdGetIndexByString(string str, int num = 0)  // num 0：最初、1=2個目・・・
+        {
+            if (this.InvokeRequired)
+            {
+                WdGetIndexByStringCallback d = new WdGetIndexByStringCallback(WdGetIndexByString);
+                return (int)this.Invoke(d, new object[] { str });
+            }
+            else
+            {
+                for(int i = 0 ; i < this.Items.Count ; i++)
+                {
+                    if (str.CompareTo(this.Items[i]) == 0)
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 	}
 }
