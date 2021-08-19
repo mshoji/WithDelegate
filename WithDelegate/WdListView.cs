@@ -566,7 +566,7 @@ namespace WithDelegate
             }
             else
             {
-                for(int i = 0 ; i < this.Items.Count ; i++)
+                for (int i = 0; i < this.Items.Count; i++)
                 {
                     if (str.CompareTo(this.Items[i]) == 0)
                     {
@@ -577,5 +577,19 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
-	}
+        delegate void WdItemsAdrangeCallback(ListViewItem item);
+        public void WdItemsAdrange(ListViewItem item)  // num 0：最初、1=2個目・・・
+        {
+            if (this.InvokeRequired)
+            {
+                WdItemsAdrangeCallback d = new WdItemsAdrangeCallback(WdItemsAdrange);
+                this.Invoke(d, new object[] { item });
+            }
+            else
+            {
+                this.Items.AddRange(new ListViewItem[] { item });
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+    }
 }
