@@ -406,5 +406,19 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-	}
+        delegate void WdClearCallback();
+        public void WdClear()
+        {
+            if (this.InvokeRequired)
+            {
+                WdClearCallback d = new WdClearCallback(WdClear);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                this.Clear();
+            }
+        }
+        ////////////////////////////////////////////////////////////////
+    }
 }
