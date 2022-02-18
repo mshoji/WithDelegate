@@ -17,7 +17,7 @@ using System.Drawing;
 
 namespace WithDelegate
 {
-    public class WdTableLayoutPanel : System.Windows.Forms.RichTextBox
+    public class WdTableLayoutPanel : System.Windows.Forms.TableLayoutPanel
     {
         ////////////////////////////////////////////////////////////////
 #if false	// 旧バージョンとの互換性維持のために残すかもしれない
