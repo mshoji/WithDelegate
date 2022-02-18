@@ -94,6 +94,9 @@
     <Compile Include="WdRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WdTableLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WdTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
