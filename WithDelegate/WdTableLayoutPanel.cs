@@ -80,20 +80,6 @@ namespace WithDelegate
             }
         }
         ////////////////////////////////////////////////////////////////
-        delegate void WdAppendTextCallback(string str);
-        public void WdAppendText(string str)		// Since AppendText exists, it was referred to as WdAppendText. 
-        {
-            if (this.InvokeRequired)
-            {
-                WdAppendTextCallback d = new WdAppendTextCallback(WdAppendText);
-                this.Invoke(d, new object[] { str });
-            }
-            else
-            {
-                this.AppendText(str);
-            }
-        }
-        ////////////////////////////////////////////////////////////////
         delegate void WdVisibleCallback(bool flg);
         public void WdVisible(bool flg)
         {
