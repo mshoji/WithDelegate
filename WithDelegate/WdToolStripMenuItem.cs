@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WithDelegate
 {
@@ -62,6 +64,36 @@ namespace WithDelegate
 			else
 			{
 				this.Size = size;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetCheckCallback(bool flg);
+		public void WdSetCheck(bool flg)
+		{
+			System.Windows.Forms.ToolStrip toolStrip = this.GetCurrentParent();
+			if(toolStrip.InvokeRequired)
+			{
+				WdSetCheckCallback d = new WdSetCheckCallback(WdSetCheck);
+				toolStrip.Invoke(d, new object[] { flg });
+			}
+			else
+			{
+				this.Checked = flg;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate bool WdGetCheckCallback();
+		public bool WdGetCheck()
+		{
+			System.Windows.Forms.ToolStrip toolStrip = this.GetCurrentParent();
+			if(toolStrip.InvokeRequired)
+			{
+				WdGetCheckCallback d = new WdGetCheckCallback(WdGetCheck);
+				return (bool)toolStrip.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Checked;
 			}
 		}
 		////////////////////////////////////////////////////////////////
