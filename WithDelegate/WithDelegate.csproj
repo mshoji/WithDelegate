@@ -46,6 +46,9 @@
     <Compile Include="WdControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WdDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WdTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
