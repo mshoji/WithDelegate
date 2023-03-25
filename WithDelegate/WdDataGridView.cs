@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace WithDelegate
 {
-    class WdDataGridView : System.Windows.Forms.DataGridView
+    public class WdDataGridView : System.Windows.Forms.DataGridView
     {
         ///////////////////////////////////////////////////////////////////////
         delegate void WdSetForeColorCallback(Color col);
