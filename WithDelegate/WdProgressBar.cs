@@ -94,7 +94,21 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
-#if false	// 旧バージョンとの互換性維持のために残すかもしれない
+		delegate int WdGetMinimumCallback();
+		public int WdGetMinimum()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetMinimumCallback d = new WdGetMinimumCallback(WdGetMinimum);
+				return (int)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.Minimum;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+#if false  // 旧バージョンとの互換性維持のために残すかもしれない                               
 		delegate void SetValueCallback(int val);
 		public void SetValue(int val)
 		{
