@@ -180,5 +180,62 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetBackColorCallback(Color BackColor);
+		public void WdSetBackColor(Color BackColor)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetBackColorCallback d = new WdSetBackColorCallback(WdSetBackColor);
+				this.Invoke(d, new object[] { BackColor });
+			}
+			else
+			{
+				this.BackColor = BackColor;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdSetForeColorCallback(Color ForeColor);
+		public void WdSetForeColor(Color ForeColor)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetForeColorCallback d = new WdSetForeColorCallback(WdSetForeColor);
+				this.Invoke(d, new object[] { ForeColor });
+			}
+			else
+			{
+				this.ForeColor= ForeColor;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate Color WdGetBackColorCallback();
+		public Color WdGetBackColor()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetBackColorCallback d = new WdGetBackColorCallback(WdGetBackColor);
+				return (Color)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.BackColor;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate Color WdGetForeColorCallback();
+		public Color WdGetForeColor()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetForeColorCallback d = new WdGetForeColorCallback(WdGetForeColor);
+				return (Color)this.Invoke(d, new object[] {  });
+			}
+			else
+			{
+				return this.ForeColor;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+
 	}
 }
