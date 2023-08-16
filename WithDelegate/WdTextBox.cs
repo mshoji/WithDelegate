@@ -264,6 +264,20 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetTabStopCallback(bool bEnable);
+		public void WdSetTabStop(bool bEnable)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetTabStopCallback d = new WdSetTabStopCallback(WdSetTabStop);
+				this.Invoke(d, new object[] { bEnable });
+			}
+			else
+			{
+				this.TabStop = bEnable;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 
 	}
 }
