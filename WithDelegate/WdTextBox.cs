@@ -236,6 +236,34 @@ namespace WithDelegate
 			}
 		}
 		////////////////////////////////////////////////////////////////
+		delegate void WdSetReadOnlyCallback(bool bEnable);
+		public void WdSetReadOnly(bool bEnable)
+		{
+			if(this.InvokeRequired)
+			{
+				WdSetReadOnlyCallback d = new WdSetReadOnlyCallback(WdSetReadOnly);
+				this.Invoke(d, new object[] { bEnable });
+			}
+			else
+			{
+				this.ReadOnly = bEnable;
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate bool WdGetReadOnlyCallback();
+		public bool WdGetReadOnly()
+		{
+			if(this.InvokeRequired)
+			{
+				WdGetReadOnlyCallback d = new WdGetReadOnlyCallback(WdGetReadOnly);
+				return (bool)this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				return this.ReadOnly;
+			}
+		}
+		////////////////////////////////////////////////////////////////
 
 	}
 }
