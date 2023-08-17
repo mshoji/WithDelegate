@@ -358,8 +358,22 @@ namespace WithDelegate
                 this.Items.Insert(index, str);
             }
         }
-        ////////////////////////////////////////////////////////////////
-        delegate void WdClearCallback();
+		////////////////////////////////////////////////////////////////
+		delegate void WdInsertListViewItemCallback(int index, ListViewItem item);
+		public void WdInsert(int index, ListViewItem item)
+		{
+			if(this.InvokeRequired)
+			{
+				WdInsertListViewItemCallback d = new WdInsertListViewItemCallback(WdInsert);
+				this.Invoke(d, new object[] { index, item });
+			}
+			else
+			{
+				this.Items.Insert(index, item);
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdClearCallback();
         public void WdClear()		// Since RemoveAt exists, it was referred to as WdRemoveAt. 
         {
             if (this.InvokeRequired)
