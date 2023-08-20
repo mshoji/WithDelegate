@@ -195,8 +195,22 @@ namespace WithDelegate
                 this.Items.Add(item);
             }
         }
-        ////////////////////////////////////////////////////////////////
-        delegate void WdItemsClearCallback();
+		////////////////////////////////////////////////////////////////
+		delegate void WdItemsStringAddCallback(string[] items);
+		public void WdItemsAdd(string[] items)
+		{
+			if(this.InvokeRequired)
+			{
+				WdItemsStringAddCallback d = new WdItemsStringAddCallback(WdItemsAdd);
+				this.Invoke(d, new object[] { items });
+			}
+			else
+			{
+				this.Items.Add(new ListViewItem(items));
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdItemsClearCallback();
         public void WdItemsClear()       // Since RemoveAt exists, it was referred to as WdRemoveAt. 
         {
             if (this.InvokeRequired)
@@ -344,8 +358,8 @@ namespace WithDelegate
 				}
             }
         }
-        ////////////////////////////////////////////////////////////////
-        delegate void WdInsertCallback(int index, string str);
+		////////////////////////////////////////////////////////////////
+		delegate void WdInsertCallback(int index, string str);
         public void WdInsert(int index, string str)		// Since Insert exists, it was referred to as WdInsert. 
         {
             if (this.InvokeRequired)
@@ -370,6 +384,20 @@ namespace WithDelegate
 			else
 			{
 				this.Items.Insert(index, item);
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		delegate void WdInsertStringCallback(int index, string[] items);
+		public void WdInsert(int index, string[] items)
+		{
+			if(this.InvokeRequired)
+			{
+				WdInsertStringCallback d = new WdInsertStringCallback(WdInsert);
+				this.Invoke(d, new object[] { index, items });
+			}
+			else
+			{
+				this.Items.Insert(index, new ListViewItem(items));
 			}
 		}
 		////////////////////////////////////////////////////////////////
